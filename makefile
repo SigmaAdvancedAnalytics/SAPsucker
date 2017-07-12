@@ -1,7 +1,4 @@
-DOCKER_IMAGE_TAG=pysaprfc
-
-clean:
-	rm -r nwrfcsdk
+DOCKER_IMAGE_TAG=SAPsucker
 
 unpack:
 	unzip nwrfcsdk_x64_linux.zip
