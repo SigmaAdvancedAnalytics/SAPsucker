@@ -52,27 +52,69 @@ class main():
 
         # return the 2D list and the headers
         return fields, headers
+    
+    
+    def split_where(self, seg):
+        # This magical function splits by spaces when not enclosed in quotes..
+        where = seg.split(' ')
+        where = [x.replace('@', ' ') for x in where]
+        return where
 
+    
+    def select_parse(self, statement):
+        statement = " ".join([x.strip('\t') for x in statement.upper().split('\n')])
+
+        if 'WHERE' not in statement:
+            statement = statement + ' WHERE '
+
+        regex = re.compile("SELECT(.*)FROM(.*)WHERE(.*)")
+
+        parts = regex.findall(statement)
+        parts = parts[0]
+        select = [x.strip() for x in parts[0].split(',')]
+        frm = parts[1].strip()
+        where = parts[2].strip()
+
+        # splits by spaces but ignores quoted string with ''
+        PATTERN = re.compile(r"""((?:[^ '"]|'[^']*'|"[^"]*")+)""")
+        where = PATTERN.split(where)[1::2]
+
+        cleaned = [select, frm, where]
+        return cleaned
+
+    
+    def SQL_parser(self, statement, MaxRows=0, FromRow=0, to_dict=False):
+        statement = self.select_parse(statement)
+
+        results = self.qry(statement[0], statement[1], statement[2], MaxRows, FromRow)
+        if to_dict:
+            headers = statement[0]
+            results2 = []
+            for line in results:
+                new_line = OrderedDict()
+                header_counter = 0
+                for field in line:
+                    try:
+                        new_line[headers[header_counter]] = field.strip()
+                        header_counter += 1
+                    except Exception as e:
+                        new_line[headers[header_counter-1]] = new_line[headers[header_counter-1]]+ " " + " ".join(line[header_counter:])
+                        break
+
+                results2.append(new_line)
+            results = results2
+        return results
 
 
 # Init the class and connect
-# I find this can be very slow to do...
-s = main()
+s = main() 
 
-# Choose your fields and table
-fields = ['MATNR', 'EAN11']
-table = 'MEAN'
-# you need to put a where condition in there... could be anything
-where = 'MATNR <> 0'
-
-# max number of rows to return
+# Enter the SQL query
+query = "select MANDT, BUKRS, BUTXT from T001 where BUKRS <> 0"
 maxrows = 10
-
-# starting row to return
 fromrow = 0
 
-# query SAP
-results, headers = s.qry(fields, table, where, maxrows, fromrow)
+results, headers = s.sql_query(query, maxrows, fromrow)
 
 print headers
 print results
