@@ -116,5 +116,6 @@ fromrow = 0
 
 results, headers = s.sql_query(query, maxrows, fromrow)
 
+print "Download Complete: \n"
 print headers
 print results
