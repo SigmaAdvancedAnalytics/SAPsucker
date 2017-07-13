@@ -1,13 +1,14 @@
 from pyrfc import Connection
+import os
 import re
 
 class main():
     def __init__(self):
-        ASHOST='my.server.name'
-        CLIENT='000'
-        SYSNR='00'
-        USER='mouser'
-        PASSWD='mypassword'
+        ASHOST=os.getenv('AHOST')
+        CLIENT=os.getenv('CLIENT')
+        SYSNR=os.getenv('SYSNR')
+        USER=os.getenv('USER')
+        PASSWD=os.getenv('PASSWD')
         self.conn = Connection(ashost=ASHOST, sysnr=SYSNR, client=CLIENT, user=USER, passwd=PASSWD)
 
 
