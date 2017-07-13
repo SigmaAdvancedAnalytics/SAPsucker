@@ -16,6 +16,7 @@ Dockerized Python SAP extractor for analytics.
 
 (Additional) For minor in-flight tweaks to the docker container, use "docker-compose run" in place of 'up' - this will drop you into a terminal inside the container. The connection and SQL query to SAP is specified inside query-builder.py  
 
+
 ### Useful resources  
 http://wbarczynski.pl/calling-bapis-with-python-and-pyrfc/  
 http://www.alexbaker.me/code/python-and-sap-part-1-connecting-to-sap  
