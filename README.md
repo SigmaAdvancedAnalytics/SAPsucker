@@ -1,6 +1,6 @@
 # SAPsucker  
 ![Our mascot](https://github.com/joshua-barber/SAPsucker/blob/master/SAPsucker.PNG)  
-Dockerized Python SAP extractor for analytics.  
+Dockerized Python SAP extractor for analytics engagements.  
 
 
 ### Usage (windows)
