@@ -2,7 +2,7 @@
 Dockerized Python SAP extractor for analytics
 
 ### Usage  
-1) Download a linux copy of NWRFCSDK using [these]<http://sap.github.io/PyRFC/install.html> instructions  
+1) Download a linux copy of NWRFCSDK using [these](http://sap.github.io/PyRFC/install.html) instructions  
 2) Copy NWRFCSDK.zip to this folder and extract (Entering "make unpack" into terminal works)   
 3) Open the makefile and enter your SAP credentials where appropriate
 4) Run "make docker_build" and "make docker_run" in order (may take a while)  
